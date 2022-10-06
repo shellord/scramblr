@@ -1,0 +1,19 @@
+{
+  "name": "scramblr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shellord/scramblr.git"
+  },
+  "author": "saheen shoukath",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shellord/scramblr/issues"
+  },
+  "homepage": "https://github.com/shellord/scramblr#readme"
+}
