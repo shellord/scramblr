@@ -6,9 +6,11 @@ const wss = new WebSocketServer({
   port: PORT,
 });
 
-wss.on('connection', function connection(ws) {
-  ws.on('message', function message(data) {
-    console.log('received: %s', data);
+wss.on('connection', (ws) => {
+  console.log('connected');
+
+  ws.on('message', (message) => {
+    console.log('received: %s', message);
   });
 
   ws.send('something');

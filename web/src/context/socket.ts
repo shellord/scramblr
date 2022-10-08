@@ -14,8 +14,14 @@ if (typeof window !== 'undefined') {
     console.log('Connected to websocket server');
   };
 
+  ws.onclose = () => {
+    console.log('Disconnected from websocket server');
+  };
+
   ws.onmessage = (event) => {
-    console.log('Received message from websocket server', event.data);
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Received message from websocket server', event.data);
+    }
   };
 }
 
