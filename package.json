@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:web": "npm run dev --prefix web",
     "dev:server": "npm run dev --prefix realtime-server"
   },
   "repository": {

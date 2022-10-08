@@ -1,21 +1,16 @@
 import React from 'react';
 
-const useSocket = () => {
+const useSocket = (url: string) => {
   const [socket, setSocket] = React.useState<WebSocket | null>(null);
   const hasRunOnceRef = React.useRef(false);
 
   let ws: WebSocket | null;
 
-  const WEBSOCKET_URL = process.env.NEXT_PUBLIC_WEBSOCKET_URL;
-  if (!WEBSOCKET_URL) {
-    throw new Error('WEBSOCKET_URL is not set');
-  }
-
   React.useEffect(() => {
-    if (hasRunOnceRef.current) return;
+    if (hasRunOnceRef.current || !url) return;
     hasRunOnceRef.current = true;
 
-    ws = new WebSocket(WEBSOCKET_URL);
+    ws = new WebSocket(url);
 
     ws.onopen = () => {
       console.log('Connected to websocket server');
@@ -43,7 +38,7 @@ const useSocket = () => {
         ws?.close();
       }
     };
-  }, []);
+  }, [url]);
 
   return socket;
 };

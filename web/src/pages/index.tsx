@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import useSocket from '../hooks/useSocket';
 
 const Home: NextPage = () => {
-  const socket = useSocket();
+  const socket = useSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL!);
 
   React.useEffect(() => {
     if (!socket) return;
