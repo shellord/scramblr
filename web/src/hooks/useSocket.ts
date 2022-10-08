@@ -2,7 +2,9 @@ import React from 'react';
 
 const useSocket = () => {
   const [socket, setSocket] = React.useState<WebSocket | null>(null);
-  const ws = React.useRef<WebSocket | null>(null);
+  const hasRunOnceRef = React.useRef(false);
+
+  let ws: WebSocket | null;
 
   const WEBSOCKET_URL = process.env.NEXT_PUBLIC_WEBSOCKET_URL;
   if (!WEBSOCKET_URL) {
@@ -10,33 +12,36 @@ const useSocket = () => {
   }
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      ws.current = new WebSocket(WEBSOCKET_URL);
+    if (hasRunOnceRef.current) return;
+    hasRunOnceRef.current = true;
 
-      ws.current.onopen = () => {
-        console.log('Connected to websocket server');
-        setSocket(ws.current);
-      };
+    ws = new WebSocket(WEBSOCKET_URL);
 
-      ws.current.onclose = () => {
-        console.log('Disconnected from websocket server');
-        setSocket(null);
-      };
+    ws.onopen = () => {
+      console.log('Connected to websocket server');
+      setSocket(ws);
+    };
 
-      ws.current.onerror = (err) => {
-        console.error('Error connecting to websocket server', err);
-        setSocket(null);
-      };
-
-      ws.current.onmessage = (event) => {
-        if (process.env.NODE_ENV === 'development') {
-          console.log('Received message from websocket server', event.data);
-        }
-      };
-    }
-    return () => {
+    ws.onclose = () => {
+      console.log('Disconnected from websocket server');
       setSocket(null);
-      ws.current?.close();
+    };
+
+    ws.onerror = (err) => {
+      console.error('Error connecting to websocket server', err);
+      setSocket(null);
+    };
+
+    ws.onmessage = (event) => {
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Received message from websocket server', event.data);
+      }
+    };
+    return () => {
+      if (ws?.readyState === WebSocket.OPEN) {
+        setSocket(null);
+        ws?.close();
+      }
     };
   }, []);
 
