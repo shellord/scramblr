@@ -1,23 +1,23 @@
 import React from "react";
 import { NextPage } from "next";
-import Test from "../components/Test";
 import { useSocket } from "../context/socket";
+import Container from "../components/ui/Container";
+import Button from "../components/ui/Button";
 
 const Home: NextPage = () => {
   const { socket } = useSocket();
 
   return (
-    <div>
-      <Test />
-      <button
-        onClick={() => {
-          socket?.send("ss");
-        }}
-      >
-        Send
-      </button>
-      <h1>Home</h1>
-    </div>
+    <Container>
+      <div className="h-full flex justify-center items-center flex-col">
+        <p className="text-white text-7xl">Scramblr</p>
+        <div className="mt-10" />
+        <div className="flex space-x-5">
+          <Button>Create Room</Button>
+          <Button>Join Room</Button>
+        </div>
+      </div>
+    </Container>
   );
 };
 
