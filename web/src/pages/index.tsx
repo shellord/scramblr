@@ -1,26 +1,20 @@
-import React from 'react';
-import { NextPage } from 'next';
-import useSocket from '../hooks/useSocket';
+import React from "react";
+import { NextPage } from "next";
+import Test from "../components/Test";
+import { useSocket } from "../context/socket";
 
 const Home: NextPage = () => {
-  const socket = useSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL!);
-
-  React.useEffect(() => {
-    if (!socket) return;
-    socket.onmessage = (event) => {
-      console.log(event.data);
-    };
-    socket.send('Hello from the client!');
-  }, [socket]);
+  const { socket } = useSocket();
 
   return (
     <div>
+      <Test />
       <button
         onClick={() => {
-          socket?.send('ss');
+          socket?.send("ss");
         }}
       >
-        dsf
+        Send
       </button>
       <h1>Home</h1>
     </div>
