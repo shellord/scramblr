@@ -11,6 +11,10 @@ export const useSocket = () => {
   return React.useContext(SocketContext);
 };
 
+const connect = (url: string) => {
+  return new WebSocket(url);
+};
+
 const SocketProvider: React.FC<PropsWithChildren<{ url: string }>> = ({
   children,
   url,
