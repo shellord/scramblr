@@ -48,6 +48,7 @@ const SocketProvider: React.FC<PropsWithChildren<Props>> = ({
     if (typeof window !== "undefined") {
       connect();
     }
+
     return () => {
       if (ws?.readyState === WebSocket.OPEN) {
         ws.close();
