@@ -28,7 +28,7 @@ const SocketProvider: React.FC<PropsWithChildren<{ url: string }>> = ({
         setSocket(ws);
       };
 
-      ws.close = () => {
+      ws.onclose = () => {
         console.log("Disconnected from websocket server");
         setSocket(null);
       };
@@ -46,7 +46,7 @@ const SocketProvider: React.FC<PropsWithChildren<{ url: string }>> = ({
         setSocket(null);
       }
     };
-  }, [socket, setSocket]);
+  }, []);
 
   const value = {
     socket,
