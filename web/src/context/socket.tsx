@@ -1,8 +1,16 @@
+import EventEmitter from "events";
 import React, { PropsWithChildren } from "react";
 
-type SocketContextType = { socket: WebSocket | null };
+type SocketContextType = {
+  socket: WebSocket | null;
+  listener: EventEmitter;
+};
+type Props = { url: string; reconnectInterval?: number };
 
-const initialSocketContext: SocketContextType = { socket: null };
+const initialSocketContext: SocketContextType = {
+  socket: null,
+  listener: new EventEmitter(),
+};
 
 const SocketContext =
   React.createContext<SocketContextType>(initialSocketContext);
@@ -11,7 +19,7 @@ export const useSocket = () => {
   return React.useContext(SocketContext);
 };
 
-type Props = { url: string; reconnectInterval?: number };
+const listener = new EventEmitter();
 
 const SocketProvider: React.FC<PropsWithChildren<Props>> = ({
   children,
@@ -40,6 +48,7 @@ const SocketProvider: React.FC<PropsWithChildren<Props>> = ({
         if (process.env.NODE_ENV === "development") {
           console.log("Received message from websocket server", event.data);
         }
+        listener.emit("message", event.data);
       };
     }
   }, [socket]);
@@ -59,6 +68,7 @@ const SocketProvider: React.FC<PropsWithChildren<Props>> = ({
 
   const value = {
     socket,
+    listener,
   };
 
   return (
