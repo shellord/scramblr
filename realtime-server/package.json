@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "dev": "tsnd  --respawn --transpile-only -r dotenv/config src/index.ts "
+    "dev": "NODE_ENV=development tsnd  --respawn --transpile-only -r dotenv/config src/index.ts "
   },
   "author": "",
   "license": "MIT",

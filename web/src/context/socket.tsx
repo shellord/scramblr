@@ -11,16 +11,18 @@ export const useSocket = () => {
   return React.useContext(SocketContext);
 };
 
-const SocketProvider: React.FC<PropsWithChildren<{ url: string }>> = ({
+type Props = { url: string; reconnectInterval?: number };
+
+const SocketProvider: React.FC<PropsWithChildren<Props>> = ({
   children,
   url,
+  reconnectInterval,
 }) => {
   const [socket, setSocket] = React.useState<WebSocket | null>(null);
+  let ws: WebSocket | null;
 
-  React.useEffect(() => {
-    let ws: WebSocket | null;
-
-    if (typeof window !== "undefined" && !socket) {
+  const connect = React.useCallback(() => {
+    if (!socket) {
       ws = new WebSocket(url);
 
       ws.onopen = () => {
@@ -31,6 +33,7 @@ const SocketProvider: React.FC<PropsWithChildren<{ url: string }>> = ({
       ws.onclose = () => {
         console.log("Disconnected from websocket server");
         setSocket(null);
+        setTimeout(connect, reconnectInterval || 1000);
       };
 
       ws.onmessage = (event) => {
@@ -39,7 +42,12 @@ const SocketProvider: React.FC<PropsWithChildren<{ url: string }>> = ({
         }
       };
     }
+  }, [socket]);
 
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      connect();
+    }
     return () => {
       if (ws?.readyState === WebSocket.OPEN) {
         ws.close();

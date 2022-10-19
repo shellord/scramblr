@@ -10,7 +10,7 @@ if (!WEBSOCKET_URL) {
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SocketProvider url={WEBSOCKET_URL!}>
+    <SocketProvider url={WEBSOCKET_URL!} reconnectInterval={1000}>
       <Component {...pageProps} />
     </SocketProvider>
   );
