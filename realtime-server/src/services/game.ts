@@ -1,10 +1,54 @@
-const WORDS = ["hello", "world", "pilot", "snake", "dragon"];
+import type { TGame, TPublicGame } from "../../../common/types";
 
-export const createRoom = async (roomId: string) => {
+const WORDS = [
+  "hello",
+  "world",
+  "pilot",
+  "snake",
+  "dragon",
+  "baloon",
+  "ghost",
+  "banana",
+];
+
+const Game: TGame = {
+  id: "",
+  word: "",
+  scrambledWord: "",
+  players: [],
+  started: false,
+  finished: false,
+  winner: null,
+  timer: 0,
+};
+
+const games = new Map<string, TGame>();
+
+export const createGame = (): TPublicGame => {
   const word = WORDS[Math.floor(Math.random() * WORDS.length)];
+  const roomId = Math.round(Math.random() * 1e5);
 
   const scrambledWord = word
     .split("")
     .sort(() => Math.random() - 0.5)
     .join("");
+
+  const game = {
+    ...Game,
+    id: roomId.toString(),
+    timer: 60,
+    scrambledWord,
+  };
+
+  games.set(roomId.toString(), game);
+
+  return {
+    id: game.id,
+    scrambledWord: game.scrambledWord,
+    players: game.players,
+    started: game.started,
+    finished: game.finished,
+    winner: game.winner,
+    timer: game.timer,
+  };
 };

@@ -5,10 +5,13 @@ import Container from "../components/ui/Container";
 import Button from "../components/ui/Button";
 
 const Home: NextPage = () => {
-  const { socket } = useSocket();
+  const { socket, listener } = useSocket();
 
   const createGameHandler = () => {
     socket?.send("createGame");
+    listener.on("message", (data) => {
+      console.log("data", data);
+    });
   };
 
   return (

@@ -1,4 +1,4 @@
-type TGame = {
+export type TGame = {
   id: string;
   word: string;
   scrambledWord: string;
@@ -6,9 +6,12 @@ type TGame = {
   started: boolean;
   finished: boolean;
   winner: TPlayer | null;
+  timer: number;
 };
 
-type TPlayer = {
+export type TPublicGame = Omit<TGame, "word">;
+
+export type TPlayer = {
   id: string;
   name: string;
   score: number;
