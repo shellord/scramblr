@@ -1,4 +1,4 @@
-import { WebSocketServer } from "ws";
+import { WebSocket, WebSocketServer } from "ws";
 import log from "./lib/log";
 import * as Game from "./services/game";
 
@@ -8,8 +8,21 @@ const wss = new WebSocketServer({
   port: PORT,
 });
 
-wss.on("connection", (ws) => {
+const handleUID = (uid: string, ws: WebSocket) => {
+  if (!uid) {
+    log("no uid");
+    ws.close();
+    return;
+  }
+};
+
+const clients = new Map<string, WebSocket>();
+
+wss.on("connection", (ws, req) => {
   log("connected");
+  const uid = req.url?.split("/").pop() || "";
+  handleUID(uid, ws);
+  clients.set(uid, ws);
 
   ws.on("message", (message) => {
     log(`received: ${message}`);
@@ -17,7 +30,10 @@ wss.on("connection", (ws) => {
     switch (message.toString()) {
       case "createGame": {
         log("creating game");
+
         const game = Game.createGame();
+        Game.setAdmin(game.id, uid);
+
         log(game);
         ws.send(JSON.stringify(game));
       }

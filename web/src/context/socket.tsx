@@ -21,6 +21,10 @@ export const useSocket = () => {
 
 const listener = new EventEmitter();
 
+const randomUID = () => {
+  return Math.random().toString(36).substring(2, 15);
+};
+
 const SocketProvider: React.FC<PropsWithChildren<Props>> = ({
   children,
   url,
@@ -31,7 +35,7 @@ const SocketProvider: React.FC<PropsWithChildren<Props>> = ({
 
   const connect = React.useCallback(() => {
     if (!socket) {
-      ws = new WebSocket(url);
+      ws = new WebSocket(`${url}?uid=${randomUID()}`);
 
       ws.onopen = () => {
         console.log("Connected to websocket server");

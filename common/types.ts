@@ -7,6 +7,7 @@ export type TGame = {
   finished: boolean;
   winner: TPlayer | null;
   timer: number;
+  admin: string | null;
 };
 
 export type TPublicGame = Omit<TGame, "word">;

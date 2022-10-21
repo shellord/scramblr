@@ -20,6 +20,7 @@ const Game: TGame = {
   finished: false,
   winner: null,
   timer: 0,
+  admin: null,
 };
 
 const games = new Map<string, TGame>();
@@ -50,5 +51,12 @@ export const createGame = (): TPublicGame => {
     finished: game.finished,
     winner: game.winner,
     timer: game.timer,
+    admin: game.admin,
   };
+};
+
+export const setAdmin = (roomId: string, adminId: string) => {
+  const game = games.get(roomId);
+  if (!game) return;
+  game.admin = adminId;
 };
