@@ -9,8 +9,8 @@ const Home: NextPage = () => {
 
   const createGameHandler = () => {
     socket?.send("createGame");
-    listener.on("message", (data) => {
-      console.log("data", data);
+    listener.on("GAME_CREATED", (data) => {
+      console.log(data);
     });
   };
 

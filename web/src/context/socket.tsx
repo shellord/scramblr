@@ -1,5 +1,7 @@
-import EventEmitter from "events";
 import React, { PropsWithChildren } from "react";
+import EventEmitter from "events";
+import type { TMessage } from "../../../common/types";
+import { isJson } from "../lib/utils";
 
 type SocketContextType = {
   socket: WebSocket | null;
@@ -52,7 +54,13 @@ const SocketProvider: React.FC<PropsWithChildren<Props>> = ({
         if (process.env.NODE_ENV === "development") {
           console.log("Received message from websocket server", event.data);
         }
-        listener.emit("message", event.data);
+
+        if (!isJson(event.data)) {
+          return;
+        }
+
+        const data: TMessage = JSON.parse(event.data);
+        listener.emit(data.type, data.message);
       };
     }
   }, [socket]);

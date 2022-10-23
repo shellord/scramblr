@@ -19,3 +19,10 @@ export type TPlayer = {
   finished: boolean;
   winner: boolean;
 };
+
+export type TMessageType = "GAME_CREATED" | "GAME_UPDATED";
+
+export type TMessage = {
+  type: TMessageType;
+  message: unknown;
+};

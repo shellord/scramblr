@@ -1,6 +1,7 @@
 import { WebSocket, WebSocketServer } from "ws";
 import log from "./lib/log";
 import * as Game from "./services/game";
+import createMessage from "./lib/message";
 
 const PORT = Number(process.env.PORT) || 8080;
 
@@ -35,7 +36,7 @@ wss.on("connection", (ws, req) => {
         Game.setAdmin(game.id, uid);
 
         log(game);
-        ws.send(JSON.stringify(game));
+        ws.send(createMessage("GAME_CREATED", game));
       }
     }
   });
