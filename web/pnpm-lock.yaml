@@ -15,6 +15,7 @@ specifiers:
   react-dom: 18.2.0
   react-icons: ^4.6.0
   tailwindcss: ^3.1.8
+  ts-events-emitter: ^1.0.8
   typescript: 4.8.4
 
 dependencies:
@@ -24,6 +25,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.6.0_react@18.2.0
+  ts-events-emitter: 1.0.8
 
 devDependencies:
   '@types/node': 18.8.2
@@ -2100,6 +2102,10 @@ packages:
     dependencies:
       is-number: 7.0.0
     dev: true
+
+  /ts-events-emitter/1.0.8:
+    resolution: {integrity: sha512-+P23M82WzS+dhzONuUFEiikvc4gyP7i0wfux+MWkwFPo8c2yXVPvMx2Rs9xEHfw+CO9fFrnrXB0zsCPbi7MsnQ==}
+    dev: false
 
   /tsconfig-paths/3.14.1:
     resolution: {integrity: sha512-fxDhWnFSLt3VuTwtvJt5fpwxBHg5AdKWMsgcPOOIilyjymcYVZoCQF8fvFRezCNfblEXmi+PcM1eYHeOAgXCOQ==}
