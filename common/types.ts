@@ -22,7 +22,11 @@ export type TPlayer = {
 
 export type TMessageType = "GAME_CREATED" | "GAME_UPDATED";
 
+export type TSocketEvents = {
+  GAME_CREATED: TPublicGame;
+};
+
 export type TMessage = {
-  type: TMessageType;
-  message: unknown;
+  type: keyof TSocketEvents;
+  message: TSocketEvents[keyof TSocketEvents];
 };

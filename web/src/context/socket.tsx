@@ -1,17 +1,20 @@
 import React, { PropsWithChildren } from "react";
-import EventEmitter from "events";
-import type { TMessage } from "../../../common/types";
-import { isJson } from "../lib/utils";
+import { isJson, randomUID } from "../lib/utils";
+import { createEventEmitter } from "ts-events-emitter";
+import type { TSocketEvents, TMessage } from "../../../common/types";
 
 type SocketContextType = {
   socket: WebSocket | null;
-  listener: EventEmitter;
+  listener: typeof listener;
 };
+
 type Props = { url: string; reconnectInterval?: number };
+
+const listener = createEventEmitter<TSocketEvents>();
 
 const initialSocketContext: SocketContextType = {
   socket: null,
-  listener: new EventEmitter(),
+  listener: listener,
 };
 
 const SocketContext =
@@ -19,12 +22,6 @@ const SocketContext =
 
 export const useSocket = () => {
   return React.useContext(SocketContext);
-};
-
-const listener = new EventEmitter();
-
-const randomUID = () => {
-  return Math.random().toString(36).substring(2, 15);
 };
 
 const SocketProvider: React.FC<PropsWithChildren<Props>> = ({

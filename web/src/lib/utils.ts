@@ -6,3 +6,7 @@ export const isJson = (message: string) => {
     return false;
   }
 };
+
+export const randomUID = () => {
+  return Math.random().toString(36).substring(2, 15);
+};

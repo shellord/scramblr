@@ -2,6 +2,10 @@ lockfileVersion: 5.4
 
 specifiers:
   concurrently: ^7.4.0
+  ts-events-emitter: ^1.0.8
+
+dependencies:
+  ts-events-emitter: 1.0.8
 
 devDependencies:
   concurrently: 7.4.0
@@ -150,6 +154,10 @@ packages:
     resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
     hasBin: true
     dev: true
+
+  /ts-events-emitter/1.0.8:
+    resolution: {integrity: sha512-+P23M82WzS+dhzONuUFEiikvc4gyP7i0wfux+MWkwFPo8c2yXVPvMx2Rs9xEHfw+CO9fFrnrXB0zsCPbi7MsnQ==}
+    dev: false
 
   /tslib/2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}

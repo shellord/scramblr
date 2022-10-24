@@ -20,5 +20,8 @@
   "homepage": "https://github.com/shellord/scramblr#readme",
   "devDependencies": {
     "concurrently": "^7.4.0"
+  },
+  "dependencies": {
+    "ts-events-emitter": "^1.0.8"
   }
 }
